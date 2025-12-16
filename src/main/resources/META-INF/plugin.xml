@@ -1,0 +1,126 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<!-- 
+    Dynamic Plugin Configuration
+    This plugin supports dynamic loading/unloading without IDE restart.
+    Requirements met:
+    1. No Components used (migrated to Actions)
+    2. Action Group has unique ID (MavenArtifactSearchGroup)
+    3. Only dynamic extensions used (Actions are dynamic)
+    4. No Service Overrides
+    See: https://plugins.jetbrains.com/docs/intellij/dynamic-plugins.html
+
+    5. require-restart="false" 默认值就是false可以不用加
+    see: https://blog.csdn.net/coder_copy/article/details/142461053
+-->
+<idea-plugin require-restart="false">
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>org.dean.idea.plugin.maven-artifact-search</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
+    <name>Maven Artifact Search</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="deanzhg@gmail.com">Dean Zhg</vendor>
+
+    <!-- Version of the plugin. -->
+    <version>1.0.2</version>
+
+    <!-- Plugin category on the Plugins Page. -->
+    <category>Productivity</category>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
+    <description><![CDATA[
+        An IntelliJ IDEA plugin for quickly searching and locating Maven artifacts. It supports searching for Maven artifacts in local repositories, Nexus repositories and the Central Repository.
+
+        一个 IntelliJ IDEA 插件，用于快速搜索和定位 Maven 构件。支持在本地仓库、Nexus 仓库和 Central 仓库中查找 Maven 构件。
+        <h3>主要功能</h3>
+        <ul>
+            <li><b>智能解析</b>：自动从编辑器中选中的 XML 内容解析 <code>groupId</code>、<code>artifactId</code>、<code>version</code></li>
+            <li><b>本地仓库</b>：快速打开本地 Maven 仓库中的构件目录（macOS Finder）</li>
+            <li><b>Nexus 仓库搜索</b>：在 Nexus 仓库中搜索指定的 Maven 构件（支持自定义域名配置）</li>
+            <li><b>Maven Central 搜索</b>：在 Maven Repository 中搜索构件信息</li>
+            <li><b>配置界面</b>：在 Settings 中配置 Nexus 仓库域名</li>
+            <li><b>动态插件</b>：支持热重载，无需重启 IDE</li>
+        </ul>
+        
+        <h2>使用步骤</h2>
+        <h3>1. 配置 Nexus 域名（首次使用 Nexus Repo 功能）</h3>
+        <ol>
+            <li>打开 <code>File</code> → <code>Settings</code> → <code>Other Settings</code> → <code>Maven Artifact Search</code></li>
+            <li>在 "Nexus Domain" 输入框中输入你的 Nexus 仓库域名（例如：<code>xxx.yyy.zzz</code>）</li>
+            <li>点击 "Apply" 或 "OK" 保存配置</li>
+        </ol>
+        <p><em>注意：如果不配置 Nexus 域名，使用 Nexus Repo 功能时会提示配置错误。</em></p>
+
+        <h3>2. 使用插件功能</h3>
+        <ol>
+            <li><b>选中 Maven 依赖 XML 内容</b><br/>
+                在编辑器中选中包含 Maven 依赖的 XML 内容，例如：<br/>
+                <pre>&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
+&lt;version&gt;0.8.14&lt;/version&gt;</pre>
+                或者<br/>
+                <pre>&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;</pre>
+                或者<br/>
+                <pre>&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</pre>
+                都可以解析并搜索和定位
+            </li>
+            <li><b>右键打开菜单</b><br/>
+                在编辑器中右键点击，选择 <code>Maven-Artifact-Search</code> 菜单
+            </li>
+            <li><b>选择功能</b><br/>
+                <ul>
+                    <li><b>Local Repo</b>：在 macOS Finder 中打开本地 M2 仓库目录</li>
+                    <li><b>Nexus Repo</b>：在浏览器中打开 Nexus 仓库搜索页面（使用配置的域名）</li>
+                    <li><b>Central Repo</b>：在浏览器中打开 Central Repository 搜索页面</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <h3>使用示例</h3>
+        <ul>
+            <li><b>Local Repo</b>：打开本地 Maven 仓库目录</li>
+            <li><b>Nexus Repo</b>：在 Nexus 仓库中搜索</li>
+            <li><b>Central Repo</b>：在 Maven Central 仓库中搜索</li>
+        </ul>
+
+        <h2>系统要求</h2>
+        <ul>
+            <li>IntelliJ IDEA 2025.1 或更高版本</li>
+            <li>Java 21</li>
+            <li>macOS（Local Repo 功能需要）</li>
+        </ul>
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 注册设置界面，在 Other Settings 中显示 -->
+        <applicationConfigurable 
+            parentId="other" 
+            instance="org.dean.idea.plugin.mavenartifactsearch.MavenArtifactSearchConfigurable"
+            id="org.dean.idea.plugin.maven-artifact-search.settings"
+            displayName="Maven Artifact Search"/>
+    </extensions>
+
+    <actions>
+        <!-- 右键菜单组定义 + 主菜单Tools挂载 -->
+        <group id="MavenArtifactSearchGroup"
+               class="org.dean.idea.plugin.mavenartifactsearch.MavenArtifactSearchActionGroup"
+               text="Maven Artifact Search"
+               popup="true">
+            <!-- 1. 挂载到编辑器右键菜单 放在最前 -->
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+
+            <!-- 2. 挂载到Tools主菜单，放在最后 -->
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </group>
+    </actions>
+</idea-plugin>

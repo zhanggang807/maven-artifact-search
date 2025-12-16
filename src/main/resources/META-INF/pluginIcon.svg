@@ -1,0 +1,27 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景圆角矩形，使用 AI 风格渐变 -->
+    <rect width="40" height="40" rx="8" fill="url(#aiGradient)"/>
+    
+    <!-- 放大镜（占图标大小的 80%，即 32x32，居中） -->
+    <g transform="translate(20, 20)">
+        <!-- 放大镜圆圈（半径 11，直径 22，整体放大镜包括手柄控制在 32x32 内） -->
+        <circle cx="0" cy="0" r="11" stroke="white" stroke-width="2.5" fill="none" opacity="0.95"/>
+        
+        <!-- 放大镜手柄（从圆圈边缘延伸） -->
+        <path d="M7.8 7.8L12.5 12.5" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.95"/>
+        
+        <!-- M 字母放在放大镜圆圈内中心位置（标准字体轮廓，垂直居中） -->
+        <path d="M-5.5 -5 L-5.5 5 M-5.5 -5 L0 3 M0 3 L5.5 -5 M5.5 -5 L5.5 5" 
+              stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" 
+              fill="none" opacity="0.95"/>
+    </g>
+    
+    <defs>
+        <linearGradient id="aiGradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <!-- AI 风格渐变：紫色到蓝色 -->
+            <stop offset="0%" stop-color="#6366F1"/>
+            <stop offset="50%" stop-color="#8B5CF6"/>
+            <stop offset="100%" stop-color="#3B82F6"/>
+        </linearGradient>
+    </defs>
+</svg>
