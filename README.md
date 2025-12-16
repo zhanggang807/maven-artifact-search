@@ -1,9 +1,3 @@
-# 等审核下来了再补充正式插件市场链接地址
-https://plugins.jetbrains.com/plugin/29300-maven-artifact-search/edit/versions/stable/908843
-
-2025-12-08 提交的，预计两个工作日审核，2025-12-11这天再看看吧
-
-
 # Maven Artifact Search
 
 一个 IntelliJ IDEA 插件，用于快速搜索和定位 Maven 构件。支持在本地仓库、Nexus 仓库和 Central 仓库中查找 Maven 构件。
@@ -25,6 +19,16 @@ https://plugins.jetbrains.com/plugin/29300-maven-artifact-search/edit/versions/s
 - macOS
 
 ## 安装方法
+
+### 从插件市场安装
+
+https://plugins.jetbrains.com/plugin/29300-maven-artifact-search
+
+2025-12-08 提交的，预计两个工作日审核，2025-12-11这天再看看吧
+
+### IDEA设置中插件搜索
+搜索maven-artifact-search安装即可
+
 
 ### 从源码构建安装
 
